@@ -74,9 +74,6 @@ Sportscape::Application.configure do
       :password             => 'd0gsleep',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
-    config.middleware.use ExceptionNotifier,
-      :email_prefix => "[Exception] ",
-      :sender_address => %{"Exception Notifier" <nutranation.llc@gmail.com.com>},
-      :exception_recipients => %w{spencer.kline@gmail.com}
+
 
 end
