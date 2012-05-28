@@ -1,0 +1,24 @@
+
+<h1>Let's us know what sport you want to play and when you want to play it!</h1>
+<%= form_tag("/reg_redirect", :method => "get") do %>
+	<h3>Sport:</h3>
+	<div>
+		<%= check_box_tag(:basketball) %>
+		<%= label_tag(:basketball, "Basketball") %>
+	</div>
+	<div>
+		<%= check_box_tag(:volleyball) %>
+		<%= label_tag(:volleyball, "Volleyball") %>
+	</div>
+	<div>
+		<h3>Time:</h3>
+		<%= select_year(Time.now) %>
+		<%= select_month(Time.now) %>
+		<%= select_day(Time.now) %>
+		<%= select_hour(Time.now, :ampm => true, :field_name => 'hour_start') %> until
+		<%= select_hour(Time.now, :ampm => true, :field_name => 'hour_end') %>
+	</div>
+	<div>
+		<%= submit_tag("Find") %>
+	</div>
+<% end %>

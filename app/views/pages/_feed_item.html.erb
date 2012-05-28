@@ -1,0 +1,27 @@
+<div class="feed-item">
+	<div><span class="bold">Name: </span><%= feed_item.name %></div>
+	<div><span class="bold">Address: </span><%= feed_item.address %>  <%= feed_item.city %>,  <%= feed_item.state %> </div>
+	<div id="<%= "check_in"+feed_item.id.to_s %>"><%= render :partial => 'shared/check_in', :object => feed_item %></div>
+	<% unless current_user.has_checked_in(feed_item, timestamp_get(session), session[:date][:hour_start].to_i ) or session[:date][:day].to_i != Time.now.day or session[:date][:month].to_i != Time.now.month or (@difference<-1)%>
+		<div id="<%= "check-in_form"+feed_item.id.to_s %>">
+			<%= form_for(current_user.check_ins.
+			                          build(:type =>  "check-in", :venue_id => feed_item.id),
+			                          :remote => true) do |f| %>
+			  <div><%= f.hidden_field :type %></div>
+			  <div><%= f.hidden_field :venue_id %></div>
+			  <div><%= f.submit "Check-In" %></div>
+			<% end %>
+		</div>
+	<% end %>
+	<% unless current_user.has_commited(feed_item, timestamp_get(session), session[:date][:hour_start].to_i,session[:date][:hour_end].to_i) %>
+		<div id="<%= "commitment_form"+feed_item.id.to_s %>">
+			<%= form_for(current_user.check_ins.
+			                          build(:type =>  "commitment",  :venue_id => feed_item.id),
+			                          :remote => true) do |f| %>
+			  <div><%= f.hidden_field :type %></div>
+			  <div><%= f.hidden_field :venue_id %></div>
+			  <div><%= f.submit "Commit" %></div>
+			<% end %>
+		</div>
+	<% end %>
+</div>

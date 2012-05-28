@@ -11,3 +11,18 @@
  *= require_self
  *= require_tree .
 */
+.header{
+	margin-bottom: 20px;
+}
+.form-link{
+	margin-right: 10px;
+}
+.footer{
+	margin-top: 20px;
+}
+.feed-item{
+	margin-bottom: 10px;
+}
+.bold{
+	font-weight: bold;
+}

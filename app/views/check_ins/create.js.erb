@@ -1,0 +1,2 @@
+$("#<%= 'check_in'+@venue.id.to_s %>").html("<%= escape_javascript(render :partial => 'shared/check_in', :object => @venue)%>");
+$("#<%= @type+'_form'+@venue.id.to_s %>").hide()

@@ -1,9 +1,6 @@
 <h2>Sign up</h2>
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
-  <% end -%>
-<% end -%>
+<div><%= link_to('Already a user, sign in here!', new_user_session_path)  %> </div>
+<%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook) %>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -18,5 +15,4 @@
 
   <div><%= f.submit "Sign up" %></div>
 <% end %>
-
 <%= render :partial => "devise/shared/links" %>
