@@ -79,5 +79,4 @@ Sportscape::Application.configure do
       :sender_address => %{"Exception Notifier" <nutranation.llc@gmail.com.com>},
       :exception_recipients => %w{spencer.kline@gmail.com}
 
-  end
 end
