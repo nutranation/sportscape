@@ -1,2 +1,3 @@
 <%= render 'shared/header' %>
+<h3 class="time-header"><%= @date %> <%= session[:date][:hour_start] %> until <%= session[:date][:hour_end] %></h3>
 <%= render :partial => 'feed_item', :collection => @venues %>

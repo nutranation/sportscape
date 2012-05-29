@@ -6,8 +6,8 @@ class PagesController < ApplicationController
       id=[0]
       id << 1 if session[:basketball]=="1"
       id << 2 if session[:volleyball]=="1"
-
       @venues=Venue.where("sport_id in(?)", id)
+      @date=Date.parse(session[:date][:year]+"-"+session[:date][:month]+"-"+session[:date][:day])
       render "feed"
     else
       render "form"
