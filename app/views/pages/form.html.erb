@@ -15,8 +15,8 @@
 		<%= select_year(Time.now) %>
 		<%= select_month(Time.now) %>
 		<%= select_day(Time.now) %>
-		<%= select_hour(Time.now, :ampm => true, :field_name => 'hour_start') %> until
-		<%= select_hour(Time.now, :ampm => true, :field_name => 'hour_end') %>
+		<%= select_hour(Time.now-4.hours, :ampm => true, :field_name => 'hour_start') %> until
+		<%= select_hour(Time.now-4.hours, :ampm => true, :field_name => 'hour_end') %>
 	</div>
 	<div>
 		<%= submit_tag("Find") %>
