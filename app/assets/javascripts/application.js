@@ -1,3 +1,5 @@
+
+
 //
 //geo-location-javascript v0.4.8
 //http://code.google.com/p/geo-location-javascript/
