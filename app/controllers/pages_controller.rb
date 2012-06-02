@@ -14,7 +14,12 @@ class PagesController < ApplicationController
       id=[0]
       id << 1 if session[:basketball]=="1"
       id << 2 if session[:volleyball]=="1"
-      @venues=Venue.where("sport_id in(?)", id).near([session[:lat], session[:long]], 500000, :order => "distance" )
+      if params[:status] and params[:status] =="active"
+        min=Time.now-1.hour
+        @venues=Venue.joins("join check_ins c on c.venue_id = venues.id").where("sport_id in(?) and c.created_at >= ? ", id, min).near([session[:lat], session[:long]], 500000, :order => "distance" )
+      else
+        @venues=Venue.where("sport_id in(?)", id).near([session[:lat], session[:long]], 500000, :order => "distance" )
+      end
       @date=Date.parse(session[:date][:year].to_s+"-"+session[:date][:month].to_s+"-"+session[:date][:day].to_s)
       render "feed"
     else

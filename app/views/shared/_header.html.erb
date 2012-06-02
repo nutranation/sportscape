@@ -2,9 +2,14 @@
 <div class="header">
 	<%= link_to('Select a new sport!', form_path, :class=> "form-link") %>
 	<%= link_to('Logout', destroy_user_session_path) %>
-	<select>
-		<option>all</option>
-		<option>active</option>
-	</select>
+	<% if params[:status] == "active" %>
+		<%= select_tag "active", 
+		               options_for_select(["active","all"])%>
+	<% else %>
+		<%= select_tag "active", 
+		               options_for_select(["all","active"])%>
+	<% end %>
+	
+	
 </div>
 

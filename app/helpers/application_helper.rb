@@ -2,6 +2,7 @@ module ApplicationHelper
   def timestamp_get(session)
     session[:date][:year].to_s+session[:date][:month].to_s+session[:date][:day].to_s
   end
+  
   def am_or_pm(time=Time.now.in_time_zone('Eastern Time (US & Canada)').hour)
     if (time.to_f)/12 >= 1
       hour=time-12+1
@@ -14,5 +15,8 @@ module ApplicationHelper
       am_pm="AM"
     end
     hour.to_s+" #{am_pm}"
+  end
+  def link_to_submit(text)
+    link_to_function text, "$(this).closest('form').submit()"
   end
 end
