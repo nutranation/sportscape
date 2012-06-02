@@ -29,7 +29,6 @@ class CheckInsController < ApplicationController
     session[:date][:year].to_s+session[:date][:month].to_s+session[:date][:day].to_s
   end
   def am_pm_to_i(string)
-    binding.pry
     string=string.split(" ")
     if string[1].downcase == "pm" and string[0].to_i != 12
       value=12+string[0].to_i 
