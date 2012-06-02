@@ -1,6 +1,9 @@
 <div class="header">
-	
-	<%= link_to('Select a new time or sport!', form_path, :class=> "form-link") %>
+	<%= link_to('Select a new sport!', form_path, :class=> "form-link") %>
 	<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+	<select>
+		<option>all</option>
+		<option>active</option>
+	</select>
 </div>
 

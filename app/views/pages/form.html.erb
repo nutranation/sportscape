@@ -1,5 +1,30 @@
+<script>
+		if(geo_position_js.init()){
+			geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true});
+		}
+		else{
+			alert("Functionality not available");
+		}
 
-<h1>Let's us know what sport you want to play and when you want to play it!</h1>
+		function success_callback(p)
+		{
+			$.ajax({
+			    url: '/geo_grab?lat='+p.coords.latitude.toFixed(4)+'&long='+p.coords.longitude.toFixed(4),
+			    success: function (data) {
+			    },
+			    error: function(xhr, status, error) {
+			    },
+			})
+			alert('lat='+p.coords.latitude.toFixed(4)+';lon='+p.coords.longitude.toFixed(4));
+		}
+		
+		function error_callback(p)
+		{
+			alert('error='+p.code);
+		}		
+		
+</script>
+<h1>Let's us know what sport you want play now!</h1>
 <%= form_tag("/reg_redirect", :method => "get") do %>
 	<h3>Sport:</h3>
 	<div>
@@ -9,14 +34,6 @@
 	<div>
 		<%= check_box_tag(:volleyball) %>
 		<%= label_tag(:volleyball, "Volleyball") %>
-	</div>
-	<div>
-		<h3>Time:</h3>
-		<%= select_year(Time.now) %>
-		<%= select_month(Time.now) %>
-		<%= select_day(Time.now) %>
-		<%= select_hour(Time.now, :ampm => true, :field_name => 'hour_start') %> until
-		<%= select_hour(Time.now, :ampm => true, :field_name => 'hour_end') %>
 	</div>
 	<div>
 		<%= submit_tag("Find") %>

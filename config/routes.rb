@@ -5,6 +5,7 @@ Sportscape::Application.routes.draw do
   match '/about',   :to => 'pages#about'
   match '/form',   :to => 'pages#form'
   match '/reg_redirect',   :to => 'pages#reg_redirect'
+  match '/geo_grab',   :to => 'pages#geo_grab'
   resources :check_ins
   
   

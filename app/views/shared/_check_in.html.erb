@@ -1,2 +1,2 @@
 <div><span class="bold">Check-ins: </span><%= check_in.check_in_total( timestamp_get(session), session[:date][:hour_start].to_i ) %></div>
-<div><span class="bold">Commitments: </span><%= check_in.commitment_total(timestamp_get(session), session[:date][:hour_start].to_i,session[:date][:hour_end].to_i) %></div>
+<div><span class="bold">Last Check-In: </span> <%= check_in.check_in_last %></div>

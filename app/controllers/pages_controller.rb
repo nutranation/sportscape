@@ -2,12 +2,13 @@ class PagesController < ApplicationController
   def index
     #session[:form] = false
     if session[:form]
+      
       @difference= (Time.now.hour-session[:date][:hour_start].to_i)
       id=[0]
       id << 1 if session[:basketball]=="1"
       id << 2 if session[:volleyball]=="1"
-      @venues=Venue.where("sport_id in(?)", id)
-      @date=Date.parse(session[:date][:year]+"-"+session[:date][:month]+"-"+session[:date][:day])
+      @venues=Venue.where("sport_id in(?)", id).near([session[:lat], session[:long]], 500000, :order => "distance" )
+      @date=Date.parse(session[:date][:year].to_s+"-"+session[:date][:month].to_s+"-"+session[:date][:day].to_s)
       render "feed"
     else
       render "form"
@@ -17,7 +18,13 @@ class PagesController < ApplicationController
   def reg_redirect
     session[:basketball] = params[:basketball]
     session[:volleyball] = params[:volleyball]
-    session[:date] = params[:date]
+    session[:date] ={}
+    session[:date][:year] = Time.now.year
+    session[:date][:month] = Time.now.month
+    session[:date][:day] = Time.now.day
+    session[:date][:hour_start] = Time.now.hour
+    session[:date][:hour_end] = Time.now.hour
+    
     session[:form] = true
     if user_signed_in? and current_user
       redirect_to root_path
@@ -34,5 +41,10 @@ class PagesController < ApplicationController
   end
     
   def about
+  end
+  def geo_grab
+    session[:lat]=params[:lat].to_f
+    session[:long]= params[:long].to_f
+    render "shared/blank"
   end
 end

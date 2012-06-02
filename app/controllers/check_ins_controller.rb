@@ -1,5 +1,10 @@
 class CheckInsController < ApplicationController
   def create
+    if params[:check_in][:public] == "Public"
+      @public=true
+    else
+      @public=false
+    end
     @venue=Venue.find(params[:check_in][:venue_id])
     @type=params[:check_in][:type]
     @check_in = CheckIn.create(:user_id => current_user.id, 
@@ -7,7 +12,9 @@ class CheckInsController < ApplicationController
                         :type => params[:check_in][:type],
                         :date => timestamp_get(session),
                         :hour_start => session[:date][:hour_start],
-                        :hour_end => session[:date][:hour_end]
+                        :hour_end => params[:check_in][:hour_end],
+                        :court_state => params[:check_in][:court_state],
+                        :public => @public
                         )
     @check_in.save!
     respond_to do |format|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120528191038) do
+ActiveRecord::Schema.define(:version => 20120602172414) do
 
   create_table "check_ins", :force => true do |t|
     t.integer  "venue_id"
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(:version => 20120528191038) do
     t.string   "date"
     t.integer  "hour_start"
     t.integer  "hour_end"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "court_state"
+    t.boolean  "public"
   end
 
   create_table "sports", :force => true do |t|
@@ -62,6 +64,8 @@ ActiveRecord::Schema.define(:version => 20120528191038) do
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
 end
