@@ -2,7 +2,11 @@ class PagesController < ApplicationController
   def index
     #session[:form] = false
     if session[:form]
-      
+      unless (session[:lat] ==0.0 and session[:long] ==0.0)
+          session[:lat]=Geocoder.search(request.ip)[0].data["latitude"].to_f
+          session[:long]=Geocoder.search(request.ip)[0].data["longitude"].to_f
+           
+      end
       @difference= (Time.now.hour-session[:date][:hour_start].to_i)
       id=[0]
       id << 1 if session[:basketball]=="1"
