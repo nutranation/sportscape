@@ -1,7 +1,11 @@
 class PagesController < ApplicationController
   def index
-    #session[:form] = false
-    if session[:form]
+    if session[:date_total]
+      @lag = Time.now.in_time_zone('Eastern Time (US & Canada)')-session[:date_total]
+    else
+      @lag=0
+    end
+    if session[:form] and @lag < 3600
       if (session[:lat] ==0.0 and session[:long] ==0.0)
           session[:lat]=Geocoder.search(request.ip)[0].data["latitude"].to_f
           session[:long]=Geocoder.search(request.ip)[0].data["longitude"].to_f        
@@ -22,6 +26,7 @@ class PagesController < ApplicationController
     session[:basketball] = params[:basketball]
     session[:volleyball] = params[:volleyball]
     session[:date] ={}
+    session[:date_total]=Time.now.in_time_zone('Eastern Time (US & Canada)')
     session[:date][:year] = Time.now.year
     session[:date][:month] = Time.now.month
     session[:date][:day] = Time.now.day
