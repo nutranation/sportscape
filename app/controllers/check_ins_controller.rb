@@ -12,7 +12,7 @@ class CheckInsController < ApplicationController
                         :type => params[:check_in][:type],
                         :date => timestamp_get(session),
                         :hour_start => session[:date][:hour_start],
-                        :hour_end => params[:check_in][:hour_end],
+                        :hour_end => am_pm_to_i(params[:check_in][:hour_end]),
                         :court_state => params[:check_in][:court_state],
                         :public => @public
                         )
@@ -22,9 +22,19 @@ class CheckInsController < ApplicationController
       format.js
     end
   end
+  
 
   
   def timestamp_get(session)
     session[:date][:year].to_s+session[:date][:month].to_s+session[:date][:day].to_s
+  end
+  def am_pm_to_i(string)
+    binding.pry
+    string=string.split(" ")
+    if string[1].downcase == "pm" and string[0].to_i != 12
+      value=12+string[0].to_i 
+    else
+      value=string[0].to_i 
+    end
   end
 end

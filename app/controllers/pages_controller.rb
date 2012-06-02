@@ -2,12 +2,11 @@ class PagesController < ApplicationController
   def index
     #session[:form] = false
     if session[:form]
-      unless (session[:lat] ==0.0 and session[:long] ==0.0)
+      if (session[:lat] ==0.0 and session[:long] ==0.0)
           session[:lat]=Geocoder.search(request.ip)[0].data["latitude"].to_f
-          session[:long]=Geocoder.search(request.ip)[0].data["longitude"].to_f
-           
+          session[:long]=Geocoder.search(request.ip)[0].data["longitude"].to_f        
       end
-      @difference= (Time.now.hour-session[:date][:hour_start].to_i)
+      @difference= (Time.now.in_time_zone('Eastern Time (US & Canada)').hour-session[:date][:hour_start].to_i)
       id=[0]
       id << 1 if session[:basketball]=="1"
       id << 2 if session[:volleyball]=="1"
@@ -26,8 +25,8 @@ class PagesController < ApplicationController
     session[:date][:year] = Time.now.year
     session[:date][:month] = Time.now.month
     session[:date][:day] = Time.now.day
-    session[:date][:hour_start] = Time.now.hour
-    session[:date][:hour_end] = Time.now.hour
+    session[:date][:hour_start] = Time.now.in_time_zone('Eastern Time (US & Canada)').hour
+    session[:date][:hour_end] = Time.now.in_time_zone('Eastern Time (US & Canada)').hour
     
     session[:form] = true
     if user_signed_in? and current_user

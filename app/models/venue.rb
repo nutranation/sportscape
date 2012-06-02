@@ -16,7 +16,7 @@ class Venue < ActiveRecord::Base
   def check_in_last()
     if CheckIn.where("venue_id=?", self.id).size >0
       
-      CheckIn.where("venue_id=?", self.id).last.created_at.in_time_zone('Eastern Time (US & Canada)')
+      CheckIn.where("venue_id=?", self.id).last.created_at.in_time_zone('Eastern Time (US & Canada)').hour
     else
       "None"
     end
