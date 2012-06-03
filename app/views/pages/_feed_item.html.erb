@@ -4,21 +4,28 @@
 	<div><span class="bold">Distance: </span><%= feed_item.distance_to([session[:lat], session[:long]]).round(2) %> miles away</div>
 	<div><span class="bold">Address: </span><%= feed_item.address %>  <%= feed_item.city %>,  <%= feed_item.state %> </div>
 	<div id="<%= "check_in"+feed_item.id.to_s %>"><%= render :partial => 'shared/check_in', :object => feed_item %></div>
-	
 	<% unless current_user.has_checked_in(feed_item, timestamp_get(session), session[:date][:hour_start].to_i ) or session[:date][:day].to_i != Time.now.day or session[:date][:month].to_i != Time.now.month or (@difference<-1)%>
-		<div id="<%= "check-in_form"+feed_item.id.to_s %>">
-			<%= form_for(current_user.check_ins.
-			                          build(:type =>  "check-in", :venue_id => feed_item.id),
-			                          :remote => true, :html => { :multipart => true }) do |f| %>
-			  <div><%= f.hidden_field :type %></div>
-			  <div><%= f.hidden_field :venue_id %></div>
-				<div class="bold">Check In:</div>
-				
-				<span class="bold">Until: </span><%= f.select :hour_end,["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM","9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"], :selected => am_or_pm %>
-				<div><span class="bold"> Court State: </span><%= f.text_field :court_state %></span></div>
-				<div><span class="bold"> Public/Private: </span><%= f.select :public,{:order=>["Public", "Private"]} %></span></div>
-			  <div><%= f.submit "Submit" %></div>
-			<% end %>
-		</div>
-	<% end %>
+		<input  id="<%= "form"+feed_item.id.to_s %>"name="submit" type="submit" value="Check-in" class="check-in">
+	<% end %>    
+
+
+<div class="light-wrapper" id="light-wrapper<%= feed_item.id.to_s  %>">
+    <div id="light<%= feed_item.id.to_s  %>" class="white_content" >
+            <%= render :partial => 'shared/check_in_form', :object => feed_item %>
+            
+    </div>
+    
+    <div id="fade<%= feed_item.id.to_s  %>" class="black_overlay"></div>
 </div>
+<script>
+$('a.close-light').click(function() {
+    $('#light<%= feed_item.id.to_s  %>').hide();
+    $('#fade<%= feed_item.id.to_s  %>').hide();
+    $('#light-wrapper<%= feed_item.id.to_s  %>').hide();
+});
+$("#form<%= feed_item.id.to_s  %>").click(function(){
+	document.getElementById('light<%= feed_item.id.to_s  %>').style.display='block';
+	document.getElementById('fade<%= feed_item.id.to_s  %>').style.display='block';
+	document.getElementById('light-wrapper<%= feed_item.id.to_s  %>').style.display='block';
+})
+</script>
